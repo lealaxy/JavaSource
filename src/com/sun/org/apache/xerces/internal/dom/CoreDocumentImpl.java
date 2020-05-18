@@ -1506,7 +1506,7 @@ public class CoreDocumentImpl
         if (nodeTable == null) {
             nodeTable = new HashMap<>();
             num = --nodeCounter;
-            nodeTable.put(node, new Integer(num));
+            nodeTable.put(node, num);
         } else {
             Integer n = nodeTable.get(node);
             if (n == null) {

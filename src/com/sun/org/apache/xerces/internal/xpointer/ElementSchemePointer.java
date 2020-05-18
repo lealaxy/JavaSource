@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2005 The Apache Software Foundation.
@@ -536,9 +535,9 @@ class ElementSchemePointer implements XPointerPart {
         private Tokens(SymbolTable symbolTable) {
             fSymbolTable = symbolTable;
 
-            fTokenNames.put(new Integer(XPTRTOKEN_ELEM_NCNAME),
+            fTokenNames.put(XPTRTOKEN_ELEM_NCNAME,
                     "XPTRTOKEN_ELEM_NCNAME");
-            fTokenNames.put(new Integer(XPTRTOKEN_ELEM_CHILD),
+            fTokenNames.put(XPTRTOKEN_ELEM_CHILD,
                     "XPTRTOKEN_ELEM_CHILD");
         }
 
@@ -548,7 +547,7 @@ class ElementSchemePointer implements XPointerPart {
          * @return String The token string
          */
         private String getTokenString(int token) {
-            return (String) fTokenNames.get(new Integer(token));
+            return (String) fTokenNames.get(token);
         }
 
         /**
@@ -557,7 +556,7 @@ class ElementSchemePointer implements XPointerPart {
          * @return String The token string
          */
         private Integer getToken(int token) {
-            return (Integer) fTokenNames.get(new Integer(token));
+            return (Integer) fTokenNames.get(token);
         }
 
         /**
@@ -568,7 +567,7 @@ class ElementSchemePointer implements XPointerPart {
         private void addToken(String tokenStr) {
             Integer tokenInt = (Integer) fTokenNames.get(tokenStr);
             if (tokenInt == null) {
-                tokenInt = new Integer(fTokenNames.size());
+                tokenInt = fTokenNames.size();
                 fTokenNames.put(tokenInt, tokenStr);
             }
             addToken(tokenInt.intValue());
@@ -772,7 +771,7 @@ class ElementSchemePointer implements XPointerPart {
                     // An invalid child sequence character
                     if (child == 0) {
                         reportError("InvalidChildSequenceCharacter",
-                                new Object[] { new Character((char) ch) });
+                                new Object[] { (char) ch });
                         return false;
                     }
 

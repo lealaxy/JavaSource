@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
+ */
+/*
+ * Copyright (c) 2007, 2020, Oracle and/or its affiliates. All rights reserved.
  * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 /*
@@ -104,6 +107,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
      * @return The canonical lexical representation of the declaration's {value constraint} value.
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_default>XML Schema Part 1: Structures [schema default]</a>
      */
+    @SuppressWarnings("deprecation")
     public String getSchemaDefault() {
         return fDeclaration == null ? null : fDeclaration.getConstraintValue();
     }
@@ -115,6 +119,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_normalized_value>XML Schema Part 1: Structures [schema normalized value]</a>
      * @return the normalized value of this item after validation
      */
+    @Deprecated
     public String getSchemaNormalizedValue() {
         return fNormalizedValue;
     }
@@ -220,6 +225,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getActualNormalizedValue()
      */
+    @Deprecated
     public Object getActualNormalizedValue() {
         return this.fActualValue;
     }
@@ -227,6 +233,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getActualNormalizedValueType()
      */
+    @Deprecated
     public short getActualNormalizedValueType() {
         return this.fActualValueType;
     }
@@ -234,6 +241,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getItemValueTypes()
      */
+    @Deprecated
     public ShortList getItemValueTypes() {
         return this.fItemValueTypes;
     }

@@ -24,14 +24,14 @@
  */
 package com.sun.jmx.snmp;
 
-import java.net.InetAddress;
+import com.sun.jmx.snmp.internal.SnmpTools;
+
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.StringTokenizer;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-
-import com.sun.jmx.snmp.internal.SnmpTools;
+import java.util.StringTokenizer;
 
 /**
  * This class is handling an <CODE>SnmpEngineId</CODE> data. It copes with binary as well as <CODE>String</CODE> representation of an engine Id. A string format engine is an hex string starting with 0x.
@@ -363,7 +363,7 @@ public class SnmpEngineId implements Serializable {
      * @param address The IP address the SNMPv3 Adaptor Server is listening to.
      * @param port The TCP/IP port the SNMPv3 Adaptor Server is listening to.
      * @return The generated engine Id.
-     * @exception UnknownHostException. if the provided address is null.
+     * @exception IllegalArgumentException if the provided address is null.
      */
     public static SnmpEngineId createEngineId(InetAddress address, int port)
         throws IllegalArgumentException {

@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2000-2002,2004 The Apache Software Foundation.
@@ -86,6 +85,7 @@ public class AttributePSVImpl implements AttributePSVI {
      * @return The canonical lexical representation of the declaration's {value constraint} value.
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_default>XML Schema Part 1: Structures [schema default]</a>
      */
+    @SuppressWarnings("deprecation")
     public String getSchemaDefault() {
         return fDeclaration == null ? null : fDeclaration.getConstraintValue();
     }
@@ -97,6 +97,7 @@ public class AttributePSVImpl implements AttributePSVI {
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_normalized_value>XML Schema Part 1: Structures [schema normalized value]</a>
      * @return the normalized value of this item after validation
      */
+    @Deprecated
     public String getSchemaNormalizedValue() {
         return fNormalizedValue;
     }
@@ -184,6 +185,7 @@ public class AttributePSVImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getActualNormalizedValue()
      */
+    @Deprecated
     public Object getActualNormalizedValue() {
         return this.fActualValue;
     }
@@ -191,6 +193,7 @@ public class AttributePSVImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getActualNormalizedValueType()
      */
+    @Deprecated
     public short getActualNormalizedValueType() {
         return this.fActualValueType;
     }
@@ -198,6 +201,7 @@ public class AttributePSVImpl implements AttributePSVI {
     /* (non-Javadoc)
      * @see com.sun.org.apache.xerces.internal.xs.ItemPSVI#getItemValueTypes()
      */
+    @Deprecated
     public ShortList getItemValueTypes() {
         return this.fItemValueTypes;
     }

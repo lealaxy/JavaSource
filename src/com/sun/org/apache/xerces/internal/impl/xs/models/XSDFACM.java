@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2006, 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 1999-2004 The Apache Software Foundation.
@@ -803,7 +802,7 @@ public class XSDFACM
                         fTransTable[curState] = makeDefStateList();
 
                         /* Optimization(Jan, 2001) */
-                        stateTable.put(newSet, new Integer(curState));
+                        stateTable.put(newSet, curState);
                         /* Optimization(Jan, 2001) */
 
                         // We now have a new state to do so bump the count

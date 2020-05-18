@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
- * Copyright 1999-2002,2004, 2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.io.StringReader;
 import java.util.Vector;
 
+import com.sun.org.apache.xerces.internal.dom.AbortException;
 import com.sun.org.apache.xerces.internal.impl.Constants;
 import com.sun.org.apache.xerces.internal.impl.RevalidationHandler;
 import com.sun.org.apache.xerces.internal.impl.dtd.DTDGrammar;
@@ -158,11 +159,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
     // attribute value normalization
     final XMLString fNormalizedValue = new XMLString(new char[16], 0, 0);
 
-    /**
-     * If the user stops the process, this exception will be thrown.
-     */
-    public static final RuntimeException abort = new RuntimeException();
-
     //DTD validator
     private XMLDTDValidator fDTDValidator;
 
@@ -243,11 +239,10 @@ public class DOMNormalizer implements XMLDocumentHandler {
                                         XMLGrammarDescription.XML_SCHEMA, fValidationHandler);
                                 fValidationHandler = null;
                         }
-                }
-                catch (RuntimeException e) {
-            if( e==abort )
-                return; // processing aborted by the user
-            throw e;    // otherwise re-throw.
+                } catch (AbortException e) {
+                    return;
+                } catch (RuntimeException e) {
+                    throw e;    // otherwise re-throw.
                 }
 
         }
@@ -1372,10 +1367,10 @@ public class DOMNormalizer implements XMLDocumentHandler {
             error.fRelatedData = locator.fRelatedNode;
 
             if(!errorHandler.handleError(error))
-                throw abort;
+                throw new AbortException();
         }
         if( severity==DOMError.SEVERITY_FATAL_ERROR )
-            throw abort;
+            throw new AbortException();
     }
 
     protected final void updateQName (Node node, QName qname){
@@ -2043,6 +2038,5 @@ public class DOMNormalizer implements XMLDocumentHandler {
     public XMLDocumentSource getDocumentSource(){
         return null;
     }
-
 
 }  // DOMNormalizer class

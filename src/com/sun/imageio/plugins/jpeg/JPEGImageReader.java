@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
  * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  *
  *
@@ -374,7 +374,10 @@ public class JPEGImageReader extends ImageReader {
             // And set current image since we've read it now
             currentImage = 0;
         }
-        if (seekForwardOnly) {
+        // If the image positions list is empty as in the case of a tables-only
+        // stream, then attempting to access the element at index
+        // imagePositions.size() - 1 will cause an IndexOutOfBoundsException.
+        if (seekForwardOnly && !imagePositions.isEmpty()) {
             Long pos = (Long) imagePositions.get(imagePositions.size()-1);
             iis.flushBefore(pos.longValue());
         }
@@ -389,6 +392,17 @@ public class JPEGImageReader extends ImageReader {
             return getNumImagesOnThread(allowSearch);
         } finally {
             clearThreadLock();
+        }
+    }
+
+    private void skipPastImage(int imageIndex) {
+        cbLock.lock();
+        try {
+            gotoImage(imageIndex);
+            skipImage();
+        } catch (IOException | IndexOutOfBoundsException e) {
+        } finally {
+            cbLock.unlock();
         }
     }
 
@@ -479,6 +493,11 @@ public class JPEGImageReader extends ImageReader {
         }
         if (!tablesOnlyChecked) {
             checkTablesOnly();
+        }
+        // If the image positions list is empty as in the case of a tables-only
+        // stream, then no image data can be read.
+        if (imagePositions.isEmpty()) {
+            throw new IIOException("No image data present to read");
         }
         if (imageIndex < imagePositions.size()) {
             iis.seek(((Long)(imagePositions.get(imageIndex))).longValue());
@@ -1233,7 +1252,8 @@ public class JPEGImageReader extends ImageReader {
         // Note that getData disables acceleration on buffer, but it is
         // just a 1-line intermediate data transfer buffer that will not
         // affect the acceleration of the resulting image.
-        aborted = readImage(structPointer,
+        aborted = readImage(imageIndex,
+                            structPointer,
                             buffer.getData(),
                             numRasterBands,
                             srcBands,
@@ -1395,7 +1415,8 @@ public class JPEGImageReader extends ImageReader {
     /**
      * Returns <code>true</code> if the read was aborted.
      */
-    private native boolean readImage(long structPointer,
+    private native boolean readImage(int imageIndex,
+                                     long structPointer,
                                      byte [] buffer,
                                      int numRasterBands,
                                      int [] srcBands,

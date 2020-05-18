@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2006, 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2003-2005 The Apache Software Foundation.
@@ -1648,7 +1647,7 @@ public class XIncludeHandler
                 if (fEntityResolver != null) fChildConfig.setProperty(ENTITY_RESOLVER, fEntityResolver);
                 fChildConfig.setProperty(SECURITY_MANAGER, fSecurityManager);
                 fChildConfig.setProperty(XML_SECURITY_PROPERTY_MANAGER, fSecurityPropertyMgr);
-                fChildConfig.setProperty(BUFFER_SIZE, new Integer(fBufferSize));
+                fChildConfig.setProperty(BUFFER_SIZE, fBufferSize);
 
                 // features must be copied to child configuration
                 fNeedCopyFeatures = true;

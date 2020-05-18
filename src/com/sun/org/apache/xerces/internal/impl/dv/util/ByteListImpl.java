@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2004 The Apache Software Foundation.
@@ -95,7 +94,7 @@ public class ByteListImpl extends AbstractList implements ByteList {
 
     public Object get(int index) {
         if (index >= 0 && index < data.length) {
-            return new Byte(data[index]);
+            return data[index];
         }
         throw new IndexOutOfBoundsException("Index: " + index);
     }

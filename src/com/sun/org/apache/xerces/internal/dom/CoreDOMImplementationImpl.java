@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 1999-2005 The Apache Software Foundation.
@@ -386,8 +385,9 @@ public class CoreDOMImplementationImpl
          * reference to the default error handler.
          */
         public LSSerializer createLSSerializer() {
-        return new DOMSerializerImpl();
-    }
+            return new DOMSerializerImpl();
+        }
+
         /**
          * DOM Level 3 LS CR - Experimental.
          * Create a new empty input source.

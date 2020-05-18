@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2005 The Apache Software Foundation.
@@ -242,8 +241,8 @@ public final class XPointerHandler extends XIncludeHandler implements
                 if (openParenCount != closeParenCount) {
                     reportError("UnbalancedParenthesisInXPointerExpression",
                             new Object[] { xpointer,
-                                    new Integer(openParenCount),
-                                    new Integer(closeParenCount) });
+                                    openParenCount,
+                                    closeParenCount });
                 }
 
                 // Perform scheme specific parsing of the pointer part
@@ -490,15 +489,15 @@ public final class XPointerHandler extends XIncludeHandler implements
         private Tokens(SymbolTable symbolTable) {
             fSymbolTable = symbolTable;
 
-            fTokenNames.put(new Integer(XPTRTOKEN_OPEN_PAREN),
+            fTokenNames.put(XPTRTOKEN_OPEN_PAREN,
                     "XPTRTOKEN_OPEN_PAREN");
-            fTokenNames.put(new Integer(XPTRTOKEN_CLOSE_PAREN),
+            fTokenNames.put(XPTRTOKEN_CLOSE_PAREN,
                     "XPTRTOKEN_CLOSE_PAREN");
-            fTokenNames.put(new Integer(XPTRTOKEN_SHORTHAND),
+            fTokenNames.put(XPTRTOKEN_SHORTHAND,
                     "XPTRTOKEN_SHORTHAND");
-            fTokenNames.put(new Integer(XPTRTOKEN_SCHEMENAME),
+            fTokenNames.put(XPTRTOKEN_SCHEMENAME,
                     "XPTRTOKEN_SCHEMENAME");
-            fTokenNames.put(new Integer(XPTRTOKEN_SCHEMEDATA),
+            fTokenNames.put(XPTRTOKEN_SCHEMEDATA,
                     "XPTRTOKEN_SCHEMEDATA");
         }
 
@@ -508,7 +507,7 @@ public final class XPointerHandler extends XIncludeHandler implements
          * @return String The token string
          */
         private String getTokenString(int token) {
-            return (String) fTokenNames.get(new Integer(token));
+            return (String) fTokenNames.get(token);
         }
 
         /**
@@ -519,7 +518,7 @@ public final class XPointerHandler extends XIncludeHandler implements
         private void addToken(String tokenStr) {
             Integer tokenInt = (Integer) fTokenNames.get(tokenStr);
             if (tokenInt == null) {
-                tokenInt = new Integer(fTokenNames.size());
+                tokenInt = fTokenNames.size();
                 fTokenNames.put(tokenInt, tokenStr);
             }
             addToken(tokenInt.intValue());

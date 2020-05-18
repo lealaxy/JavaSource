@@ -37,14 +37,13 @@ import java.security.PrivilegedAction;
 
 import static java.awt.RenderingHints.*;
 
-public abstract class UNIXToolkit extends SunToolkit {
-    /**
-     * All calls into GTK should be synchronized on this lock
-     */
+public abstract class UNIXToolkit extends SunToolkit
+{
+    /** All calls into GTK should be synchronized on this lock */
     public static final Object GTK_LOCK = new Object();
 
-    private static final int[] BAND_OFFSETS = {0, 1, 2};
-    private static final int[] BAND_OFFSETS_ALPHA = {0, 1, 2, 3};
+    private static final int[] BAND_OFFSETS = { 0, 1, 2 };
+    private static final int[] BAND_OFFSETS_ALPHA = { 0, 1, 2, 3 };
     private static final int DEFAULT_DATATRANSFER_TIMEOUT = 10000;
 
     // Allowed GTK versions
@@ -79,16 +78,14 @@ public abstract class UNIXToolkit extends SunToolkit {
         public int getNumber() {
             return number;
         }
-    }
-
-    ;
+    };
 
     private Boolean nativeGTKAvailable;
     private Boolean nativeGTKLoaded;
     private BufferedImage tmpImage = null;
 
     public static int getDatatransferTimeout() {
-        Integer dt = (Integer) AccessController.doPrivileged(
+        Integer dt = (Integer)AccessController.doPrivileged(
                 new GetIntegerAction("sun.awt.datatransfer.timeout"));
         if (dt == null || dt <= 0) {
             return DEFAULT_DATATRANSFER_TIMEOUT;
@@ -159,9 +156,9 @@ public abstract class UNIXToolkit extends SunToolkit {
      * Load a native Gtk stock icon.
      *
      * @param longname a desktop property name. This contains icon name, size
-     *                 and orientation, e.g. <code>"gtk.icon.gtk-add.4.rtl"</code>
+     *        and orientation, e.g. <code>"gtk.icon.gtk-add.4.rtl"</code>
      * @return an <code>Image</code> for the icon, or <code>null</code> if the
-     * icon could not be loaded
+     *         icon could not be loaded
      */
     protected Object lazilyLoadGTKIcon(String longname) {
         // Check if we have already loaded it.
@@ -225,15 +222,15 @@ public abstract class UNIXToolkit extends SunToolkit {
      * Returns a BufferedImage which contains the Gtk stock icon requested.
      * If no such stock icon exists the result will be null.
      *
-     * @param widgetType    one of WidgetType values defined in GTKNativeEngine or
-     *                      -1 for system default stock icon.
-     * @param stockId       String which defines the stock id of the gtk item.
-     *                      For a complete list reference the API at www.gtk.org for StockItems.
-     * @param iconSize      One of the GtkIconSize values defined in GTKConstants
+     * @param widgetType one of WidgetType values defined in GTKNativeEngine or
+     * -1 for system default stock icon.
+     * @param stockId String which defines the stock id of the gtk item.
+     * For a complete list reference the API at www.gtk.org for StockItems.
+     * @param iconSize One of the GtkIconSize values defined in GTKConstants
      * @param textDirection One of the TextDirection values defined in
-     *                      GTKConstants
-     * @param detail        Render detail that is passed to the native engine (feel
-     *                      free to pass null)
+     * GTKConstants
+     * @param detail Render detail that is passed to the native engine (feel
+     * free to pass null)
      * @return The stock icon or null if it was not found or loaded.
      */
     public BufferedImage getStockIcon(final int widgetType, final String stockId,
@@ -258,7 +255,7 @@ public abstract class UNIXToolkit extends SunToolkit {
      * This method is used by JNI as a callback from load_stock_icon.
      * Image data is passed back to us via this method and loaded into the
      * local BufferedImage and then returned via getStockIcon.
-     * <p>
+     *
      * Do NOT call this method directly.
      */
     public void loadIconCallback(byte[] data, int width, int height,
@@ -283,18 +280,13 @@ public abstract class UNIXToolkit extends SunToolkit {
     }
 
     private static native boolean check_gtk(int version);
-
     private static native boolean load_gtk(int version, boolean verbose);
-
     private static native boolean unload_gtk();
-
     private native boolean load_gtk_icon(String filename);
-
     private native boolean load_stock_icon(int widget_type, String stock_id,
                                            int iconSize, int textDirection, String detail);
 
     private native void nativeSync();
-
     private static native int get_gtk_version();
 
     @Override
@@ -341,7 +333,7 @@ public abstract class UNIXToolkit extends SunToolkit {
         Object aaHint;
         if (aa) {
             String subpixOrder =
-                    (String) getDesktopProperty("gnome.Xft/RGBA");
+                    (String)getDesktopProperty("gnome.Xft/RGBA");
 
             if (subpixOrder == null || subpixOrder.equals("none")) {
                 aaHint = VALUE_TEXT_ANTIALIAS_ON;
@@ -370,11 +362,14 @@ public abstract class UNIXToolkit extends SunToolkit {
      * Returns {@code true} if the GTK+ library is compatible with the given
      * version.
      *
-     * @param major The required major version.
-     * @param minor The required minor version.
-     * @param micro The required micro version.
+     * @param major
+     *            The required major version.
+     * @param minor
+     *            The required minor version.
+     * @param micro
+     *            The required micro version.
      * @return {@code true} if the GTK+ library is compatible with the given
-     * version.
+     *         version.
      */
     public boolean checkGtkVersion(int major, int minor, int micro) {
         if (loadGTK()) {
@@ -390,7 +385,7 @@ public abstract class UNIXToolkit extends SunToolkit {
             return GtkVersions.ANY;
         } else if (version.startsWith("2")) {
             return GtkVersions.GTK2;
-        } else if ("3".equals(version)) {
+        } else if("3".equals(version) ){
             return GtkVersions.GTK3;
         }
         return GtkVersions.ANY;
@@ -401,7 +396,7 @@ public abstract class UNIXToolkit extends SunToolkit {
     }
 
     public static boolean isGtkVerbose() {
-        return AccessController.doPrivileged((PrivilegedAction<Boolean>) ()
+        return AccessController.doPrivileged((PrivilegedAction<Boolean>)()
                 -> Boolean.getBoolean("jdk.gtk.verbose"));
     }
 }

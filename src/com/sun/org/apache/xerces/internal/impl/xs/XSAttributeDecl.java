@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2007, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
  */
 /*
  * Copyright 2001-2004 The Apache Software Foundation.
@@ -158,6 +157,7 @@ public class XSAttributeDecl implements XSAttributeDeclaration {
      * Value constraint: The actual value (with respect to the {type
      * definition}) Should we return Object instead of DOMString?
      */
+    @Deprecated
     public String getConstraintValue() {
         // REVISIT: SCAPI: what's the proper representation
         return getConstraintType() == XSConstants.VC_NONE ?
@@ -194,18 +194,21 @@ public class XSAttributeDecl implements XSAttributeDeclaration {
         fNamespaceItem = namespaceItem;
     }
 
+    @Deprecated
     public Object getActualVC() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
                fDefault.actualValue;
     }
 
+    @Deprecated
     public short getActualVCType() {
         return getConstraintType() == XSConstants.VC_NONE ?
                XSConstants.UNAVAILABLE_DT :
                fDefault.actualValueType;
     }
 
+    @Deprecated
     public ShortList getItemValueTypes() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
